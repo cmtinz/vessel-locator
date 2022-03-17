@@ -19,6 +19,7 @@ class ShipResource extends JsonResource
         $destination = Destination::find($this->destination_id);
         
         return  [
+            'id' => $this->id,
             'name' => $this->name,
             'latitude' => $this->position->getLat(),
             'longitude' => $this->position->getLng(),
