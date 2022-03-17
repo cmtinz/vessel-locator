@@ -35,7 +35,7 @@ export function Map({ dispatch, state, actions }) {
                             .filter(s => state.selectedShip? s.id === selectedShip.id : true)
                             .map(d => 
                                 <Marker coordinates={[d.longitude, d.latitude]} key={d.id}>
-                                    <rect width="5" height="10" stroke="black" fill="#33BCFF" stroke-width="0" transform={`rotate(${d.direction} 2.5 5)`}/>
+                                    <rect width="5" height="10" stroke="black" fill="#33BCFF" strokeWidth="0" transform={`rotate(${d.direction} 2.5 5)`}/>
                                 </Marker>
                         )
                     }

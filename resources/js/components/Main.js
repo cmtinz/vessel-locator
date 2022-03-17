@@ -72,45 +72,49 @@ function Main() {
         pagination: false,
         destinations: []
     });
-    const loadPage = (page) => {
-        axios.get(page)
-            .then(r => {dispatch({type: 'SET_SHIPS', payload: r.data})})
-            .catch(e => {console.error('loadPage', e)}) 
-    }
-    const selectShip = shipId => dispatch({type: 'SELECT_SHIP', payload: shipId});
-    const updateShip = data => {
-        dispatch({type: 'UPDATE_SHIP', payload: data})
-    }
-    const saveShip = data => {
-        axios.put('/api/ships/' + data.id, data)
-            .then(r => {dispatch({type: 'UPDATE_SHIP', payload: r.data.data})})
-            .catch(e => {console.error('saveShip', e)})
-    }
-    const deleteShip = shipId => {
-        axios.delete('/api/ships/' + shipId)
-            .then(r => {dispatch({type: 'DELETE_SHIP', payload: shipId})})
-            .catch(e => {console.error('deleteShip', e)})
-    }
-    const createNewShip = () => {
-        dispatch({type: 'PUSH_DRAFT_SHIP'})
-    }
-    const deleteDraftShip = shipId => {
-        dispatch({type: 'DELETE_SHIP', payload: shipId})
-    }
-    const saveDraftShip =  data => {
-        axios.post('/api/ships/', data)
-            .then(r => {
-                dispatch({type: 'UPDATE_DRAFT_SHIP', payload: {newShip: r.data.data, oldId: data.id}})
-            })
-            .catch(e => {console.error('saveDraftShip', e)})
-    }
-    useEffect(() => {loadPage('/api/ships')}, []);
+    
+    const actions = {
+        loadPage: (page) => {
+            axios.get(page)
+                .then(r => {dispatch({type: 'SET_SHIPS', payload: r.data})})
+                .catch(e => {console.error('loadPage', e)}) 
+        },
+        selectShip: shipId => dispatch({type: 'SELECT_SHIP', payload: shipId}),
+        updateShip: data => {
+            dispatch({type: 'UPDATE_SHIP', payload: data})
+        },
+        saveShip: data => {
+            axios.put('/api/ships/' + data.id, data)
+                .then(r => {dispatch({type: 'UPDATE_SHIP', payload: r.data.data})})
+                .catch(e => {console.error('saveShip', e)})
+        },
+        deleteShip: shipId => {
+            axios.delete('/api/ships/' + shipId)
+                .then(r => {dispatch({type: 'DELETE_SHIP', payload: shipId})})
+                .catch(e => {console.error('deleteShip', e)})
+        },
+        createNewShip: () => {
+            dispatch({type: 'PUSH_DRAFT_SHIP'})
+        },
+        deleteDraftShip: shipId => {
+            dispatch({type: 'DELETE_SHIP', payload: shipId})
+        },
+        saveDraftShip: data => {
+            axios.post('/api/ships/', data)
+                .then(r => {
+                    dispatch({type: 'UPDATE_DRAFT_SHIP', payload: {newShip: r.data.data, oldId: data.id}})
+                })
+                .catch(e => {console.error('saveDraftShip', e)})
+        },
+    };
+
+    useEffect(() => {actions.loadPage('/api/ships')}, []);
     useEffect(() => {
         axios.get('/api/destinations')
             .then(r => {dispatch({type: 'SET_DESTINATIONS', payload: r.data})})
             .catch(e => {console.error('loadPage', e)}) 
     }, []);
-    const actions = {loadPage, selectShip, updateShip, saveShip, deleteShip, createNewShip, deleteDraftShip, saveDraftShip};
+    
 
     console.debug('State', state)
     return (
