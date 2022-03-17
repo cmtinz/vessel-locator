@@ -38,12 +38,13 @@ class ShipController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validations)->validate();
-        return Ship::create([
+        $ship = Ship::create([
             'name' => $request->name,
             'position' => new Point($request->latitude, $request->longitude),
             'destination_id' => $request->destination_id,
             'direction' => $request->direction
         ]);
+        return new ShipResource($ship);
     }
 
     /**
@@ -74,7 +75,7 @@ class ShipController extends Controller
             'direction' => $request->direction
         ]);
         $ship->save();
-        return $ship;
+        return new ShipResource($ship);
     }
 
     /**

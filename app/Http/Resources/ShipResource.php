@@ -23,12 +23,7 @@ class ShipResource extends JsonResource
             'name' => $this->name,
             'latitude' => $this->position->getLat(),
             'longitude' => $this->position->getLng(),
-            'destination' => [
-                'id' => $destination->id,
-                'name' => $destination->name,
-                'latitude' => $destination->position->getLat(),
-                'longitude' => $destination->position->getLng(),
-            ],
+            'destination_id' => $destination->id,
             'direction' => $this->direction
         ];
     }

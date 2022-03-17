@@ -14,6 +14,6 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        return Destination::select('id', 'name')->get();
+        return Destination::all();
     }
 }
