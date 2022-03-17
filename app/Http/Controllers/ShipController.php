@@ -16,7 +16,7 @@ class ShipController extends Controller
         'latitude' => 'required|numeric',
         'longitude' => 'required|numeric',
         'direction' => 'required|numeric',
-        'destination_id' => 'required|exists:destinations,id',
+        'destination_id' => 'required|exists:destinations,id'
     ];
 
     /**
@@ -24,9 +24,17 @@ class ShipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ShipResource::collection(Ship::paginate());
+        $validator = Validator::make($request->all(), [
+            'shipName' => 'nullable|string',
+            'destinationId' => 'nullable|numeric',
+        ])->validate();
+        $ships = Ship::when($dId = $request->destinationId, fn ($q) => $q->where('destination_id', $dId))
+            ->when($sName = $request->shipName, fn ($q) => $q->where('name', 'like', "%$sName%"))
+            ->paginate()->withQueryString();
+        /* return ShipResource::collection(Ship::paginate()); */
+        return ShipResource::collection($ships);
     }
 
     /**

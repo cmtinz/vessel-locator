@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Filters } from './Filters';
 import { Map } from './Map';
 import { ShipEdit } from './ShipEdit';
 import { Ships } from './Ships';
@@ -60,6 +61,11 @@ function reducer(currentState, action) {
                 ...currentState,
                 destinations: action.payload
             };
+        case 'UPDATE_FILTERS':
+            return {
+                ...currentState,
+                filters: action.payload
+            }
         default:
             return {...currentState};
     }
@@ -70,12 +76,16 @@ function Main() {
         ships: [],
         selectedShip: false,
         pagination: false,
-        destinations: []
+        destinations: [],
+        filters: {
+            destinationId: '',
+            shipName: ''
+        }
     });
     
     const actions = {
-        loadPage: (page) => {
-            axios.get(page)
+        loadPage: (page, params) => {
+            axios.get(page, {params})
                 .then(r => {dispatch({type: 'SET_SHIPS', payload: r.data})})
                 .catch(e => {console.error('loadPage', e)}) 
         },
@@ -106,6 +116,9 @@ function Main() {
                 })
                 .catch(e => {console.error('saveDraftShip', e)})
         },
+        updateFilters: filters => {
+            dispatch({type: 'UPDATE_FILTERS', payload: filters})
+        }
     };
 
     useEffect(() => {actions.loadPage('/api/ships')}, []);
@@ -122,6 +135,7 @@ function Main() {
             <div className="container-fluid">
                 <Map dispatch={dispatch} state={state} actions={actions} />
                 <div id='controls'>
+                    <Filters state={state} actions={actions}/>
                     {
                         state.selectedShip ?
                         <ShipEdit dispatch={dispatch} state={state} actions={actions}/> :
