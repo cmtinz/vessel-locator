@@ -14,6 +14,13 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        return Destination::all();
+        return Destination::all()->map(function ($d) {
+            return [
+                'id' => $d->id,
+                'name' => $d->name,
+                'latitude' => $d->position->getLat(),
+                'longitude' => $d->position->getLng(),
+            ];
+        });
     }
 }

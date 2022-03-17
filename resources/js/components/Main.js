@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Map } from './Map';
 import { ShipEdit } from './ShipEdit';
 import { Ships } from './Ships';
 
@@ -113,13 +114,18 @@ function Main() {
 
     console.debug('State', state)
     return (
-        <div className="container-fluid">
-            {
-                state.selectedShip ?
-                <ShipEdit dispatch={dispatch} state={state} actions={actions}/> :
-                <Ships dispatch={dispatch} state={state} actions={actions}/>
-            }
-        </div>
+        <React.StrictMode>
+            <div className="container-fluid">
+                <Map dispatch={dispatch} state={state} actions={actions} />
+                <div id='controls'>
+                    {
+                        state.selectedShip ?
+                        <ShipEdit dispatch={dispatch} state={state} actions={actions}/> :
+                        <Ships dispatch={dispatch} state={state} actions={actions}/>
+                    }
+                </div>
+            </div>
+        </React.StrictMode>
     );
 }
 
