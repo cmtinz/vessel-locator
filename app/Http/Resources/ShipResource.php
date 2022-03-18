@@ -20,7 +20,7 @@ class ShipResource extends JsonResource
         
         return  [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->name?? '',
             'latitude' => $this->position->getLat(),
             'longitude' => $this->position->getLng(),
             'destination_id' => $destination->id,

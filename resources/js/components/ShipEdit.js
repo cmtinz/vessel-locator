@@ -21,24 +21,24 @@ export function ShipEdit({ state, reducer, actions }) {
             </h2>
             <form onSubmit={handleSubmit}>
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nombre</label>
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">Nombre</label>
                     <input name='name' id='name' value={selectedShip.name} onChange={handleChange} className='form-control'/>
                 </div>
-                <div class="mb-3">
-                    <label for="latitude" class="form-label">Latitud</label>
+                <div className="mb-3">
+                    <label htmlFor="latitude" className="form-label">Latitud</label>
                     <input type='number' name='latitude' id='latitude' value={selectedShip.latitude} onChange={handleChange} className='form-control'/>
                 </div>
-                <div class="mb-3">
-                    <label for="longitude" class="form-label">Longitud</label>
+                <div className="mb-3">
+                    <label htmlFor="longitude" className="form-label">Longitud</label>
                     <input type='number' name='longitude' id='longitude' value={selectedShip.longitude} onChange={handleChange} className='form-control'/>
                 </div>
-                <div class="mb-3">
-                    <label for="direction" class="form-label">Dirección</label>
+                <div className="mb-3">
+                    <label htmlFor="direction" className="form-label">Dirección</label>
                     <input type='number' name='direction' id='direction' value={selectedShip.direction} onChange={handleChange} className='form-control'/>
                 </div>
-                <div class="mb-3">
-                    <label for="direction" class="form-label">Destino</label>
+                <div className="mb-3">
+                    <label htmlFor="direction" className="form-label">Destino</label>
                     <select value={selectedShip.destination_id} name='destination_id' onChange={handleChange} className='form-select'>
                         {
                             state.destinations.map(d => <option key={d.id} value={d.id}>{d.name}</option>)

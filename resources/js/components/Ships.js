@@ -41,7 +41,7 @@ export function Ships({ state, dispatch, actions }) {
                             <a onClick={e => {actions.loadPage(state.pagination.prev)}} disabled={!state.pagination.prev} className='page-link'>←</a>
                         </li>
                         <li className='page-item disabled'>
-                            <span class="page-link">
+                            <span className="page-link">
                                 Página {state.pagination.current} de {state.pagination.last}
                             </span>
                         </li>

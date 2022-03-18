@@ -12,7 +12,7 @@ class ShipController extends Controller
 {
 
     private $validations = [
-        'name' => 'string|required',
+        'name' => 'string|nullable',
         'latitude' => 'required|numeric',
         'longitude' => 'required|numeric',
         'direction' => 'required|numeric',
