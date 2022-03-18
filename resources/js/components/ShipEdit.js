@@ -16,34 +16,51 @@ export function ShipEdit({ state, reducer, actions }) {
     const selectedShip = state.ships.find(s => s.id === state.selectedShip);
     return (
         <div>
-            <h2>{selectedShip.name || '(Sin nombre)'}</h2>
+            <h2>
+                Editando {selectedShip.name || '(Sin nombre)'}
+            </h2>
             <form onSubmit={handleSubmit}>
-                <label>Nombre <input name='name' value={selectedShip.name} onChange={handleChange}/></label>
-                <label>Latitud <input name='latitude' value={selectedShip.latitude} type='number' onChange={handleChange}/></label>
-                <label>Longitud <input name='longitude' value={selectedShip.longitude} type='number' onChange={handleChange}/></label>
-                <label>Dirección <input name='direction' value={selectedShip.direction} type='number' onChange={handleChange}/></label>
-                <label>
-                    Destino
-                    <select value={selectedShip.destination_id} name='destination_id' onChange={handleChange}>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input name='name' id='name' value={selectedShip.name} onChange={handleChange} className='form-control'/>
+                </div>
+                <div class="mb-3">
+                    <label for="latitude" class="form-label">Latitud</label>
+                    <input type='number' name='latitude' id='latitude' value={selectedShip.latitude} onChange={handleChange} className='form-control'/>
+                </div>
+                <div class="mb-3">
+                    <label for="longitude" class="form-label">Longitud</label>
+                    <input type='number' name='longitude' id='longitude' value={selectedShip.longitude} onChange={handleChange} className='form-control'/>
+                </div>
+                <div class="mb-3">
+                    <label for="direction" class="form-label">Dirección</label>
+                    <input type='number' name='direction' id='direction' value={selectedShip.direction} onChange={handleChange} className='form-control'/>
+                </div>
+                <div class="mb-3">
+                    <label for="direction" class="form-label">Destino</label>
+                    <select value={selectedShip.destination_id} name='destination_id' onChange={handleChange} className='form-select'>
                         {
                             state.destinations.map(d => <option key={d.id} value={d.id}>{d.name}</option>)
                         }
                     </select>
-                </label>
-                <button>
-                    {Number.isInteger(selectedShip.id)? 'Guardar' : 'Crear'}
-                </button>
+                </div>
+                <div className='d-flex gy-2'>
+                    {
+                        Number.isInteger(selectedShip.id) ?
+                        <>
+                            <button type='button' className='btn btn-outline-primary' onClick={() => actions.selectShip(null)}>Atrás</button>
+                            <button type='button' className='btn btn-outline-danger ms-2' onClick={() => actions.deleteShip(selectedShip.id)}>Eliminar</button>
+                        </> :
+                        <>
+                            <button type='button' className='btn btn-outline-primary' onClick={() => actions.deleteDraftShip(selectedShip.id)}>Cancelar</button>
+                        </>
+                    }
+                    <button className='btn btn-primary ms-auto'>
+                        {Number.isInteger(selectedShip.id)? 'Guardar' : 'Crear'}
+                    </button>
+                </div>
             </form>
-            {
-                Number.isInteger(selectedShip.id) ?
-                <>
-                    <button onClick={() => actions.selectShip(null)}>Atrás</button>
-                    <button onClick={() => actions.deleteShip(selectedShip.id)}>Eliminar</button>
-                </> :
-                <>
-                    <button onClick={() => actions.deleteDraftShip(selectedShip.id)}>Cancelar</button>
-                </>
-            }
         </div>
     );
 }

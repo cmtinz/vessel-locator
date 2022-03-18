@@ -132,17 +132,24 @@ function Main() {
     console.debug('State', state)
     return (
         <React.StrictMode>
-            <div className="container-fluid">
-                <Map dispatch={dispatch} state={state} actions={actions} />
-                <div id='controls'>
-                    <Filters state={state} actions={actions}/>
-                    {
-                        state.selectedShip ?
-                        <ShipEdit dispatch={dispatch} state={state} actions={actions}/> :
-                        <Ships dispatch={dispatch} state={state} actions={actions}/>
-                    }
+            <>
+                <div className='row'>
+                    <div className='col-12 col-lg-9' id='map'>
+                        <Map dispatch={dispatch} state={state} actions={actions} />
+                    </div>
+                    <div className='col-12 col-lg-3 bg-light' id='sidebar'>
+                        
+                        {
+                            state.selectedShip ?
+                            <ShipEdit dispatch={dispatch} state={state} actions={actions}/> :
+                            <>
+                                <Filters state={state} actions={actions}/>
+                                <Ships dispatch={dispatch} state={state} actions={actions}/>
+                            </>
+                        }
+                    </div>
                 </div>
-            </div>
+            </>
         </React.StrictMode>
     );
 }

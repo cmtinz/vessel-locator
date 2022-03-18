@@ -10,20 +10,31 @@ export function Filters({ state, actions }) {
         actions.loadPage('/api/ships', state.filters)
     }
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>Nombre <input name='shipName' value={state.filters.shipName} onChange={handleChange}/></label>
-                <label>
-                    Destino
-                    <select value={state.filters.destinationId} name='destinationId' onChange={handleChange}>
+        <form onSubmit={handleSubmit} className='mt-2'>
+            <div class="row gy-3 align-items-center">
+                <div class="col-3">
+                    <label for="inputPassword6" class="col-form-label">Nombre</label>
+                </div>
+                <div class="col-9">
+                    <input type='text' name='shipName' value={state.filters.shipName} onChange={handleChange} class="form-control"/>
+                </div>
+            </div>
+            <div class="row gt-1 align-items-center mt-1">
+                <div class="col-3">
+                    <label for="inputPassword6" class="col-form-label">Destino</label>
+                </div>
+                <div class="col-9">
+                    <select value={state.filters.destinationId} name='destinationId' onChange={handleChange} className='form-select'>
                         <option value='' >Todos</option>
                         {
                             state.destinations.map(d => <option key={d.id} value={d.id}>{d.name}</option>)
                         }
                     </select>
-                </label>
-                <button>Filtrar</button>
-            </form>
-        </div>
+                </div>
+            </div>
+            <div className='d-flex justify-content-end'>
+                <button className='btn btn-primary ms-1 mt-2'>Filtrar</button>
+            </div>
+        </form>
     );
 }

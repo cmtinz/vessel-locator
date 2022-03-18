@@ -13,7 +13,7 @@ const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-map
 export function Map({ dispatch, state, actions }) {
     const selectedShip = state.ships.find(s => s.id === state.selectedShip);
     return (
-        <div id='map'>
+        <div>
             <ComposableMap>
                 <ZoomableGroup>
                     <Geographies geography={geoUrl}>
