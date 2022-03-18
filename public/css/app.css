@@ -11286,3 +11286,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.ship-icon {
+  fill: #33BCFF;
+  cursor: pointer;
+}
+.ship-icon:hover {
+  fill: #006699;
+}

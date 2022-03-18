@@ -6,3 +6,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.ship-icon {
+    fill: #33BCFF;
+    cursor: pointer;
+    &:hover {
+        fill: #006699;
+    }
+}

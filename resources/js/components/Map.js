@@ -33,9 +33,14 @@ export function Map({ dispatch, state, actions }) {
                     {
                         state.ships
                             .filter(s => state.selectedShip? s.id === selectedShip.id : true)
-                            .map(d => 
-                                <Marker coordinates={[d.longitude, d.latitude]} key={d.id}>
-                                    <rect width="5" height="10" stroke="black" fill="#33BCFF" strokeWidth="0" transform={`rotate(${d.direction} 2.5 5)`}/>
+                            .map(s => 
+                                <Marker coordinates={[s.longitude, s.latitude]} key={s.id}>
+                                    <path 
+                                        d="M 0 4.073 C 0.626 1.353 1.562 -0.007 2.5 0 C 3.437 0.006 4.374 1.381 5 4.127 L 5 12.773 L 4.719 14.981 L 2.5 15 L 0.336 14.981 L 0 12.769 L 0 4.073 Z"
+                                        transform={`rotate(${s.direction} 2.5 7.5)`}
+                                        className='ship-icon'
+                                        onClick={() => actions.selectShip(s.id)}
+                                    />
                                 </Marker>
                         )
                     }
