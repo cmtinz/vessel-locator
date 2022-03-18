@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Database\Seeder;
 use App\Models\Destination;
+use App\Models\Ship;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
         $destinations = [
             ['Valparaíso', -33.0458, -71.6197],
             ['San Diego', 32.715, -117.1625],
@@ -37,6 +36,8 @@ class DatabaseSeeder extends Seeder
                 'position' => new Point($d[1], $d[2]),
             ]);
         }
+
+        Ship::factory(200)->create();
 
     }
 }
